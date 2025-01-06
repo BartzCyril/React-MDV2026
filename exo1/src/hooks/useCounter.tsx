@@ -2,14 +2,14 @@ import {useState} from "react";
 
 type props = {
     initial: number,
-    number: number
+    step: number
 }
 
-const useCounter = ({initial, number}: props) => {
+const useCounter = ({initial, step}: props) => {
     const [count, setCount] = useState(initial);
 
-    const increment = () => setCount(count + number);
-    const decrement = () => setCount(count - number);
+    const increment = () => setCount(count + step);
+    const decrement = () => setCount(count - step);
 
     return { count, increment, decrement };
 }

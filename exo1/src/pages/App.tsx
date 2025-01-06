@@ -2,7 +2,7 @@ import useCounter from "../hooks/useCounter.tsx";
 import Button from "../components/Button.tsx";
 
 function App() {
-    const {count, increment, decrement} = useCounter({initial: 0, number: 5});
+    const {count, increment, decrement} = useCounter({initial: 0, step: 5});
 
     return (
         <>
