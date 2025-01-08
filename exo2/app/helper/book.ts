@@ -22,12 +22,21 @@ const book = {
                 data = [data];
             }
             for (let i = 0; i < data.length; i++) {
-                const cover = await book.getBookCover(data[i].isbn);
-                data[i] = {...data[i], cover: URL.createObjectURL(cover)};
+                const blob = await book.getBookCover(data[i].isbn);
+                const reader = new FileReader();
+
+                await new Promise((resolve) => {
+                    reader.onloadend = () => {
+                        data[i] = { ...data[i], cover: reader.result };
+                        resolve(null);
+                    };
+                    reader.readAsDataURL(blob);
+                });
             }
             if (id) {
                 return data[0] as Book;
             }
+            localStorage.setItem("books", JSON.stringify(data));
             return data as Book[];
         } catch (error: any) {
             throw new Error("Error fetching book : " + error.message);

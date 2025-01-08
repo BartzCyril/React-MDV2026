@@ -11,7 +11,13 @@ export default function Index() {
     const [error, setError] = useState("");
 
     useEffect(() => {
-        BookHelper.getBooks().then((data) => setBooks(data as Book[])).catch((error) => setError(error.message)).finally(() => setLoading(false));
+        const localBooks = localStorage.getItem("books");
+        if (localBooks) {
+            setBooks(JSON.parse(localBooks) as Book[]);
+            setLoading(false);
+        } else {
+            BookHelper.getBooks().then((data) => setBooks(data as Book[])).catch((error) => setError(error.message)).finally(() => setLoading(false));
+        }
     }, []);
 
     return (
