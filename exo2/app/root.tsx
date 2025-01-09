@@ -9,6 +9,8 @@ import {
 
 import type { Route } from "./+types/root";
 import stylesheet from "./app.css?url";
+import ThemeContext from "~/context/Theme";
+import {useState} from "react";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -43,7 +45,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  const [theme, setTheme] = useState<"light" | "dark">("dark");
+
+  return <ThemeContext value={{
+    theme,
+    setTheme
+  }}>
+    <Outlet/>
+  </ThemeContext>;
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {

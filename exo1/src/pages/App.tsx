@@ -3,7 +3,6 @@ import Button from "../components/Button.tsx";
 
 function App() {
     const {count, increment, decrement} = useCounter({initial: 0, step: 5});
-
     return (
         <>
             <h1>Compteur : {count}</h1>
